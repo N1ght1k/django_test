@@ -1,0 +1,20 @@
+{% block current %}
+{% for pass in passes %}
+<div class="card border-dark mt-3">
+    <div class="bg-light card-body">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <div class="d-flex flex-column">
+          <p class="card-text fs-3">{{pass.name}}</p>
+          <p class="card-text fs-3">{{pass.car}}</p>
+          <p class="card-text fs-3">{{pass.color}}</p>
+        </div>
+        <p class="card-text fs-1 fw-bold">{{pass.car_number}}</p>
+      </div>
+      <div class="d-flex justify-content-between">
+        <p class="card-text">{{pass.epc}}</p>
+        <p class="card-text">{{pass.rssi}}</p>
+      </div>
+    </div>
+</div>  
+{% endfor %}
+{% endblock %}
