@@ -21,7 +21,7 @@ def get_current(request):
     if request.htmx:
         info = []
         tags = cache.keys("tag:*")
-        new_tag = [(t[4:], cache.get(t)) for t in tags]
+        new_tag = [(t[4:], int(cache.get(t))) for t in tags]
         sorted_list = sorted(new_tag, key=lambda tag: tag[1])
         for t in sorted_list:
             try:
@@ -37,7 +37,10 @@ def get_current(request):
 def tag_handler(request):
     if request.method == "GET":
         tag = request.GET["epc"]
-        checked_pass = Pass.objects.get(epc=tag)
+        try:
+            checked_pass = Pass.objects.get(epc=tag)
+        except:
+            checked_pass = None
         if checked_pass:
             return HttpResponse("true")
         return HttpResponse("false")
