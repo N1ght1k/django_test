@@ -8,29 +8,37 @@ from django.views.decorators.csrf import csrf_exempt
 
 
 def index(request):
-    passes = Pass.objects.all()
-    tags = cache.keys("tag:*")
-    print([t[4:] for t in tags])
-    print(tags)
-    for pass1 in passes:
-        print(pass1.name)
-    return render(request, "passes.html", {"passes": passes})
+    try:
+        passes = Pass.objects.all()
+
+        tags = cache.keys("tag:*")
+
+        print([t[4:] for t in tags])
+        print(tags)
+        for pass1 in passes:
+            print(pass1.name)
+        return render(request, "passes.html", {"passes": passes})
+    except:
+        return render(request, "passes.html")
 
 
 def get_current(request):
     if request.htmx:
         info = []
-        tags = cache.keys("tag:*")
-        new_tag = [(t[4:], int(cache.get(t))) for t in tags]
-        sorted_list = sorted(new_tag, key=lambda tag: tag[1])
-        for t in sorted_list:
-            try:
-                current_pass = Pass.objects.get(epc=t[0])
-            except:
-                current_pass = None
-            if current_pass:
-                info.append(current_pass)
-        return render(request, "current_passes.html", {"passes": info})
+        try:
+            tags = cache.keys("tag:*")
+            new_tag = [(t[4:], int(cache.get(t))) for t in tags]
+            sorted_list = sorted(new_tag, key=lambda tag: tag[1])
+            for t in sorted_list:
+                try:
+                    current_pass = Pass.objects.get(epc=t[0])
+                except:
+                    current_pass = None
+                if current_pass:
+                    info.append(current_pass)
+            return render(request, "current_passes.html", {"passes": info})
+        except:
+            pass
 
 
 @csrf_exempt
