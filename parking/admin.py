@@ -7,7 +7,10 @@ class HistoryAdmin(admin.ModelAdmin):
 
 
 class PassAdmin(admin.ModelAdmin):
-    list_display = ("pass_number", "name", "service", "car", "car_number")
+    list_display = ("pass_number", "name", "service", "car", "car_number", "epc")
+    search_fields = ("name", "service", "epc")
+    list_per_page = 20
+    list_filter = ("service",)
 
 
 # Register your models here.
