@@ -11,6 +11,7 @@ class PassAdmin(admin.ModelAdmin):
     search_fields = ("name", "service", "epc")
     list_per_page = 20
     list_filter = ("service",)
+    list_display_links = ("name",)
 
 
 # Register your models here.

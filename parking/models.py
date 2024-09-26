@@ -4,7 +4,9 @@ from django.utils import timezone
 
 # Create your models here.
 class Pass(models.Model):
-    pass_number = models.PositiveIntegerField(verbose_name="Номер пропуска")
+    pass_number = models.PositiveIntegerField(
+        verbose_name="Номер пропуска", null=True, blank=True
+    )
     pass_type = models.CharField(
         max_length=255, verbose_name="Тип пропуска", null=True, blank=True
     )
