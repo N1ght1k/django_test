@@ -1,8 +1,9 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Pass, Log
+from .models import Pass, Log, History
 from django.core.cache import cache
 from django.views.decorators.csrf import csrf_exempt
+import json
 
 # Create your views here.
 
@@ -54,14 +55,22 @@ def tag_handler(request):
         return HttpResponse("false")
     if request.method == "POST":
         # data = request.POST
-        epc = request.POST["epc"]
-        print(epc)
-        # date = data.get("timestamp")
-        new_log = Log(
-            epc=epc,
-        )
-        new_log.save()
-        return HttpResponse("Data saved")
+        try:
+            print(json.loads(request.body))
+            epc = json.loads(request.body)["epc"]
+            # date = data.get("timestamp")
+            park_pass = Pass.objects.get(epc=epc)
+            new_history = History(
+                parking_pass=park_pass,
+            )
+            new_history.save()
+            # new_log = Log(
+            #     epc=epc,
+            # )
+            # new_log.save()
+            return HttpResponse("Data saved")
+        except:
+            return HttpResponse("Failed")
 
     # passes = Pass.objects.all()
     # tags = cache.keys("tag:*")

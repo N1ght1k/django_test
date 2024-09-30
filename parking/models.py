@@ -31,12 +31,18 @@ class Pass(models.Model):
         verbose_name_plural = "Пропуска"
 
     def __str__(self):
-        return str(self.pass_number)
+        return str(self.name)
 
 
 class History(models.Model):
-    parking_pass = models.ForeignKey(Pass, on_delete=models.CASCADE)
-    created_at = models.DateTimeField(default=timezone.now)
+    parking_pass = models.ForeignKey(
+        Pass, on_delete=models.CASCADE, verbose_name="Номер пропуска"
+    )
+    created_at = models.DateTimeField(default=timezone.now, verbose_name="Отмечено")
+
+    class Meta:
+        verbose_name = "История"
+        verbose_name_plural = "История"
 
 
 class Log(models.Model):
