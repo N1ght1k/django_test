@@ -6,4 +6,5 @@ urlpatterns = [
     path("", views.index, name="index"),
     path("api/", views.tag_handler, name="tag_handler"),
     path("current/", views.get_current, name="get_current"),
+    path("history/", views.get_history, name="get_history"),
 ]

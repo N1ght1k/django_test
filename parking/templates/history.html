@@ -1,0 +1,11 @@
+{% block history %} {% for pass in history %}
+<div class="card mt-1">
+  <div class="card-body">
+    <div class="d-flex flex-column">
+      <div class="card-text fs-6">{{pass.parking_pass.car}}</div>
+      <div class="card-text fs-3 fw-bold">{{pass.parking_pass.car_number}}</div>
+      <div class="card-text fs-6">{{pass.created_at}}</div>
+    </div>
+  </div>
+</div>
+{% endfor %} {% endblock %}

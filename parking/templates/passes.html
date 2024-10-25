@@ -4,10 +4,20 @@
 
 {% block content %}
 
-<div hx-get="{% url "parking:get_current" %}" hx-trigger="every 1s"></div>
+<div class="d-flex">
+    <div class="p-2 w-100">
+        {% block current %}
+        <div hx-get="{% url "parking:get_current" %}" hx-trigger="every 1s"></div>
+        {% endblock %}
+    </div>
+    <div class="p-2 flex-shrink-1">
+        {% block history %}
+        <div hx-get="{% url "parking:get_history" %}" hx-trigger="every 1s"></div>
+        {% endblock %}
+    </div>
+</div>
 
 {% endblock %}
 
 
-{% block current %}
-{% endblock %}
+

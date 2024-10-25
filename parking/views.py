@@ -42,6 +42,15 @@ def get_current(request):
             pass
 
 
+def get_history(request):
+    if request.htmx:
+        try:
+            info = History.objects.all()[:4][::-1]
+            return render(request, "history.html", {"history": info})
+        except:
+            pass
+
+
 @csrf_exempt
 def tag_handler(request):
     if request.method == "GET":
