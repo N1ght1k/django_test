@@ -24,7 +24,7 @@ class Pass(models.Model):
     car_number = models.CharField(
         max_length=255, verbose_name="Номер автомобиля", null=True, blank=True
     )
-    epc = models.CharField(max_length=255, verbose_name="Метка")
+    epc = models.CharField(max_length=255, verbose_name="Метка", unique=True)
 
     class Meta:
         verbose_name = "Пропуск"
