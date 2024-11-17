@@ -45,7 +45,7 @@ def get_current(request):
 def get_history(request):
     if request.htmx:
         try:
-            info = History.objects.all()[:4][::-1]
+            info = History.objects.all().order_by("-created_at")[:4]
             return render(request, "history.html", {"history": info})
         except:
             pass
